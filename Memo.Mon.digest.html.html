@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Monday Digest</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 2rem;
+            color: #222;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            margin: 0 0 2rem;
+            text-align: center;
+        }
+
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 25%));
+            justify-content: space-evenly;
+            gap: 1.5rem;
+        }
+
+        .article-card {
+            position: relative;
+            display: flex;
+            aspect-ratio: 1;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            border: 2px solid #d5d5d5;
+            border-radius: 0.75rem;
+            color: inherit;
+            text-align: center;
+            text-decoration: none;
+            transition: border-color 150ms ease, transform 150ms ease;
+        }
+
+        .article-card--cover {
+            overflow: hidden;
+            padding: 0;
+            border: 0;
+        }
+
+        .article-card--cover img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .article-card--cover h2 {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            height: 25%;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+        }
+
+        .article-card:hover,
+        .article-card:focus-visible {
+            border-color: #555;
+            transform: translateY(-3px);
+        }
+
+        .article-card--cover:hover,
+        .article-card--cover:focus-visible {
+            border-color: transparent;
+        }
+
+        .article-card h2 {
+            margin: 0;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 1.25rem;
+            }
+
+            .article-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 440px) {
+            .article-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Memory Monday Digest</h1>
+    </header>
+    <main class="article-grid" aria-label="Article editions">
+        <a class="article-card article-card--cover" href="Formats/article%20format.html">
+            <img src="https://cm1.ai/_img/width=1400,quality=90/https://storage.googleapis.com/patr-3a75e.appspot.com/uploads/image_picker_3933a44a-daa9-429b-b.jpg" alt="">
+            <h2>Article format</h2>
+        </a>
+        <a class="article-card" href="Digest%20Articles/Memory%20Monday%20Digest%20Edition%20%231.html">
+            <h2>Memory Monday Digest edition #1</h2>
+        </a>
+    </main>
+</body>
+</html>

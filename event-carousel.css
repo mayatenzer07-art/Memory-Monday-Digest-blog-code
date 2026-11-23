@@ -1,0 +1,129 @@
+.event-carousel {
+    width: min(70vw, 50vh, 900px);
+    margin: 2rem auto;
+}
+
+.event-carousel__stage {
+    position: relative;
+    display: grid;
+    aspect-ratio: 1;
+    place-items: center;
+    background: #171717;
+}
+
+.event-carousel__media {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    place-items: center;
+    overflow: hidden;
+}
+
+.event-carousel__media img,
+.event-carousel__media video {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.event-carousel__media-open {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.event-carousel__media img,
+.event-carousel__media video {
+    object-fit: contain;
+}
+
+.event-carousel__media-open {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: zoom-in;
+}
+
+.event-carousel__arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    transform: translateY(-50%);
+    border: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.65);
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.75rem;
+}
+
+.event-carousel__arrow:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+.event-carousel__previous {
+    left: 0.75rem;
+}
+
+.event-carousel__next {
+    right: 0.75rem;
+}
+
+.event-carousel__details {
+    padding: 0.75rem 0;
+}
+
+.event-carousel__details p {
+    margin: 0.5rem 0;
+}
+
+.event-carousel__count {
+    text-align: center;
+}
+
+.event-carousel__placeholder,
+.event-carousel__error {
+    padding: 2rem;
+    color: #fff;
+    text-align: center;
+}
+
+.event-carousel__error {
+    color: #b00020;
+    font-weight: bold;
+}
+
+.event-carousel__viewer {
+    max-width: 95vw;
+    max-height: 95vh;
+    padding: 0.75rem;
+    border: 0;
+    background: #111;
+}
+
+.event-carousel__viewer::backdrop {
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.event-carousel__close {
+    display: block;
+    margin: 0 0 0.5rem auto;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.75rem;
+}
+
+.event-carousel__viewer img,
+.event-carousel__viewer video {
+    display: block;
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+}
