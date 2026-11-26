@@ -1,10 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory Monday Digest edition #1</title>
+    <title>Memory Monday Digest Edition # (date) </title>
+    <link rel="stylesheet" href="../event-carousel.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: "Space Mono", monospace;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #000;
+            color: #fff;
+        }
+
+        a {
+            color: #fff;
+        }
+
+        .cover-container {
+            position: relative;
+        }
+
+        .home-arrow {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1;
+            display: grid;
+            width: 2.5rem;
+            height: 2.5rem;
+            place-items: center;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: 2rem;
+            line-height: 1;
+            text-decoration: none;
+        }
+
+        .cover-image-button {
+            display: block;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            cursor: zoom-in;
+        }
+
+        .cover-image-button img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 2 / 1;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .memory-carousel {
+            width: min(70vw, 50vh, 900px);
+            margin: 2rem auto;
+        }
+
+        .carousel-stage {
+            position: relative;
+            display: grid;
+            aspect-ratio: 1;
+            place-items: center;
+            background: #171717;
+        }
+
+        .memory-media {
+            display: grid;
+            width: 100%;
+            height: 100%;
+            place-items: center;
+            overflow: hidden;
+        }
+
+        .memory-media img,
+        .memory-media video {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .memory-video-wrap {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .media-open {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            cursor: zoom-in;
+        }
+
+        .media-expand {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            display: grid;
+            width: 2.5rem;
+            height: 2.5rem;
+            place-items: center;
+            border: 0;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.65);
+            color: #fff;
+            cursor: zoom-in;
+            font-size: 1.5rem;
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            z-index: 1;
+            display: grid;
+            width: 2.75rem;
+            height: 2.75rem;
+            place-items: center;
+            transform: translateY(-50%);
+            border: 0;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.65);
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.75rem;
+        }
+
+        .carousel-arrow:disabled {
+            cursor: not-allowed;
+            opacity: 0.45;
+        }
+
+        .carousel-arrow--previous {
+            left: 0.75rem;
+        }
+
+        .carousel-arrow--next {
+            right: 0.75rem;
+        }
+
+        .memory-details {
+            padding: 0.75rem 0;
+        }
+
+        .memory-details p {
+            margin: 0.5rem 0;
+        }
+
+        .memory-details .memory-count {
+            text-align: center;
+        }
+
+        .memory-placeholder {
+            padding: 2rem;
+            color: #fff;
+            text-align: center;
+        }
+
+        .media-viewer {
+            max-width: 95vw;
+            max-height: 95vh;
+            padding: 0.75rem;
+            border: 0;
+            background: #111;
+        }
+
+        .media-viewer::backdrop {
+            background: rgba(0, 0, 0, 0.85);
+        }
+
+        .media-viewer__close {
+            display: block;
+            margin: 0 0 0.5rem auto;
+            border: 0;
+            background: transparent;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.75rem;
+        }
+
+        .media-viewer img,
+        .media-viewer video {
+            display: block;
+            max-width: 90vw;
+            max-height: 85vh;
+            object-fit: contain;
+        }
+
+        .carousel-error {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .cover-viewer {
+            max-width: 95vw;
+            max-height: 95vh;
+            padding: 1rem;
+            border: 0;
+            background: #111;
+        }
+
+        .cover-viewer::backdrop {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .cover-viewer img {
+            display: block;
+            max-width: 90vw;
+            max-height: 85vh;
+            object-fit: contain;
+        }
+
+        .cover-viewer button {
+            display: block;
+            margin: 0 0 0.75rem auto;
+        }
+
+        header h1,
+        header h2,
+        header p,
+        main,
+        footer {
+            margin-right: auto;
+            margin-left: auto;
+            max-width: 900px;
+            padding-right: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        header h1 {
+            margin-top: 1.5rem;
+            color: #fff;
+            font-size: 2rem;
+        }
+
+        header h2 {
+            font-size: 1.25rem;
+        }
+    </style>
 </head>
+
 <body>
+    <header>
+        <div class="cover-container">
+            <a class="home-arrow" href="../Memo.Mon.digest.html.html" aria-label="Return to homepage">←</a>
+            <button class="cover-image-button" id="open-cover" type="button" aria-label="View full cover image">
+                <img src="https://cm1.ai/_img/quality=100/https://storage.googleapis.com/patr-3a75e.appspot.com/uploads/image_picker_f55d81a0-037f-44f6-9.jpg"">
+            </button>
+        </div>
+        <h1>Memory Monday Digest Edition #1 November 23, 2026</h1>
+        <h2>Weekly Roundup Of The Top Stories Captured On Collective Memory</h2>
+    </header>
+    <dialog class="cover-viewer" id="cover-viewer" aria-label="Full cover image">
+        <button id="close-cover" type="button">Close</button>
+        <img src="https://cm1.ai/_img/quality=100/https://storage.googleapis.com/patr-3a75e.appspot.com/uploads/image_picker_f55d81a0-037f-44f6-9.jpg" >
+    </dialog>
+    <main>
+        <p>On Collective Memory we see documentation across the globe of moments that deserve to be remembered, from
+            major events to the simplicity of everyday life - journalism, travel diaries, modern culture, simple moments
+            from everyday life that stands out.</p>
+
+        </p>Explore a curation of the top trending event clusters, our personal favorite memories and memories that
+        stand out from the Farcaster community.</p>
+
+        <h2>Farcaster Community's Featured Memories</h2>
+        <p>This section is dedicated to highlighting the memories from the Facaster community that deserve extra
+            attention. Memory Monday challenge winners, other submissions that deserve the spotlight and memories shared
+            with us this week. Next week this is where you'll see the challenge winners first.</p>
+
+        </p>Find this weeks challenge <a href="https://collectivememoryfc.netlify.app/#/info/memory-monday"> here on our
+            website</a> </p>
+
+        </p></strong>Memories From The Farcaster Community That Stood Out To Us This
+        Week<strong><p>
+        <figure>
+   <img src="https://cm1.ai/_img/width=700,quality=70/https://firebasestorage.googleapis.com/v0/b/patr-3a75e.appspot.com/o/uploads%2Fimage_picker_BT15JuIdoUP620pEynmB.jpg?alt=media" <figcaption><a href="https://farcaster.xyz/miniapps/p0YEys75-OTm/open-wire-memories/memory/BT15JuIdoUP620pEynmB?ref=copy"CM User: indicawolf&gt;</a></figcaption>
+    <p>| All-time staked: 21.3K ATTN | Union Township, United States of America | Nov 20, 2026, 11:44 PM</p>
+    <figcaption><a href="https://farcaster.xyz/indicawolf"Farcaster User: @Indicawolf&gt;</a></figcaption>
+</figure>
+
+//memory 1
+    <figure>
+  <img src="https://memo image adress link.com" alt="">   <figcaption><a href="memory link"CM User:&gt;</a></figcaption>
+</figure>
+</p><a href="farcaster profile link"Farcaster User:&gt;</a></p>
+</p>Total ATTN Staked: 1000 | Creator Earnings: ATTN</p>
+
+// memory 2
+    <figure>
+  <img src="https://memo image adress link.com" alt="">   <figcaption><a href="memory link"CM User:&gt;</a></figcaption>
+</figure>
+</p><a href="farcaster profile link"Farcaster User:&gt;</a></p>
+</p>Total ATTN Staked: 1000 | Creator Earnings: ATTN</p>
+
+    <h2>Top Events On Collective Memory This Week</h2>
+</p> Events are clusters of memories that are related to each other, either by time, location or topic. The top events are determined by the total amount of attention (ATTN) staked on the memories within the event cluster. ATTN is staked by other users to boost memories visibility, this means these are events that the <strong>community</strong>
+        decided are important and deserve attention.</p>
+
+        // for event clusters copy file "event carosel format copy rename add event and date.js" add the copy to content
+        and resources folder, rename the file to the specific event
+        edit the file and add script at the end and div here
+
+        <div id="event-carousel-top-events"></div>
+
+
+        <p>Discover more memories around the world on <a href="https://collectivememory.org">Collective Memory</a>.</p>
+        <p>Or on the <a href="https://collectivememory.org/farcaster">Collective Memory mini app</a> so you don't even
+            have to leave Farcaster!</p>
+    </main>
+    <footer>
+        <p>© 2026 Collective Memory. Content licensed under CC BY-NC 4.0.</p>
+        <p><a href="../Memo.Mon.digest.html.html">Back to all articles</a></p>
+    </footer>
+    <script src="../Formats/event%20carosel%20format%20copy%20rename%20add%20event%20and%20date.js"></script>
+    <script>
+        const coverViewer = document.getElementById("cover-viewer");
+        document.getElementById("open-cover").addEventListener("click", () => {
+            coverViewer.showModal();
+        });
+
+        document.getElementById("close-cover").addEventListener("click", () => {
+            coverViewer.close();
+        });
+    </script>
 </body>
+
 </html>

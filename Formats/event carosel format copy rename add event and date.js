@@ -7,7 +7,7 @@
  * 2. Change CAROUSEL_ID below to the matching unique ID in the article HTML.
  * 3. Change CAROUSEL_TITLE if the script should add a heading.
  * 4. Replace the example memories array with 5-15 entries.
- * 5. Add a script tag to the article HTML, using the new file name:
+ * 5. Add a script tag to the full article HTML, using the new file name:
  *    <script src="../Formats/event-carousel-team-picks.js"></script>
  *
  * HTML:
